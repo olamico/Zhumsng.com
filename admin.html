@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="icon.png">
+  <title>MiniShop Admin</title>
+  <link rel="stylesheet" href="style.css?v=3">
+  <style>
+    .wrap { max-width: 1000px; margin: 0 auto; padding: 20px; }
+    .panel { background: #fff; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,.06); }
+    .panel h2 { margin-bottom: 14px; }
+    .panel label { display: block; font-size: .9rem; margin-bottom: 10px; }
+    .panel input, .panel textarea { width: 100%; margin-top: 4px; padding: 9px; border: 1px solid #d1d5db; border-radius: 8px; font: inherit; }
+    .panel input[type=checkbox] { width: auto; margin-right: 6px; }
+    .row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+    .scroll { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+    th, td { text-align: left; padding: 8px; border-bottom: 1px solid #eee; vertical-align: top; }
+    .thumb { width: 44px; height: 44px; object-fit: cover; border-radius: 6px; background: #eef2ff; display: flex; align-items: center; justify-content: center; }
+    .actions { display: flex; gap: 6px; }
+    .btn-sm { padding: 6px 10px; font-size: .85rem; }
+    .btn-danger { background: #dc2626; }
+    .btn-danger:hover { background: #b91c1c; }
+    .msg { min-height: 20px; margin: 8px 0; font-size: .9rem; }
+    .msg.err { color: #dc2626; }
+    .msg.ok { color: #059669; }
+    .login { max-width: 360px; margin: 80px auto; }
+    select { padding: 6px; border-radius: 6px; border: 1px solid #d1d5db; }
+    .imgrow { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+    .imgrow input { margin: 0 !important; flex: 1; min-width: 0; }
+    .imgrow small { width: 70px; color: #059669; }
+    .hint { font-size: .85rem; color: #6b7280; margin-bottom: 8px; }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+
+  <!-- Login -->
+  <section id="loginBox" class="panel login" hidden>
+    <h2>Admin login</h2>
+    <form id="loginForm">
+      <label>Email <input id="email" type="email" autocomplete="username" required></label>
+      <label>Password <input id="password" type="password" autocomplete="current-password" required></label>
+      <p class="msg err" id="loginMsg"></p>
+      <button class="btn" style="width:100%">Log in</button>
+    </form>
+  </section>
+
+  <!-- Admin panel -->
+  <div id="app" hidden>
+    <header class="header">
+      <h1 class="logo">Zhumsng<span>Shop</span> Admin</h1>
+      <span style="flex:1"></span>
+      <a href="/" target="_blank">View shop</a>
+      <button id="logoutBtn" class="btn btn-light btn-sm">Log out</button>
+    </header>
+
+    <div class="wrap">
+      <section class="panel">
+        <h2 id="formTitle">Add product</h2>
+        <form id="productForm">
+          <input type="hidden" id="pid">
+          <div class="row">
+            <label>Name <input id="pname" required></label>
+            <label>Category <input id="pcat" placeholder="e.g. Electronics"></label>
+            <label>Price (₦) <input id="pprice" type="number" min="0" step="1" required></label>
+          </div>
+          <label>Description <textarea id="pdesc" rows="2"></textarea></label>
+          <div class="row">
+            <label>Colours available <input id="pcolors" placeholder="e.g. Red, Yellow, Black"></label>
+            <label>Sizes available <input id="psizes" placeholder="e.g. S, M, L, XL"></label>
+          </div>
+          <label>Add images (select several at once, max 3MB each) <input id="pimage" type="file" accept="image/*" multiple></label>
+          <datalist id="colorList"></datalist>
+          <div id="imgList"></div>
+          <p class="hint">Type the colour of each photo. The first image is the main one.</p>
+          <p class="msg" id="formMsg"></p>
+          <div class="actions">
+            <button class="btn" id="saveBtn">Save product</button>
+            <button type="button" class="btn btn-light" id="cancelEdit" hidden>Cancel edit</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel">
+        <h2>Products (<span id="pcount">0</span>)</h2>
+        <div class="scroll">
+          <table>
+            <thead><tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th></th></tr></thead>
+            <tbody id="productRows"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Orders (<span id="ocount">0</span>)</h2>
+        <div class="scroll">
+          <table>
+            <thead><tr><th>#</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th><th></th></tr></thead>
+            <tbody id="orderRows"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js?v=3"></script>
+  <script src="admin.js?v=3"></script>
+</body>
+</html>

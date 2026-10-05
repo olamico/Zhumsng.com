@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zhums by Ajé</title>
+  <link rel="icon" type="image/png" href="icon.png">
+  <meta name="theme-color" content="#F5EFE0">
+  <link rel="stylesheet" href="style.css?v=3">
+</head>
+<body>
+
+  <header class="header">
+    <a href="#" class="brand" aria-label="Zhums by Ajé"><img src="logo.png" alt="Zhums by Ajé"></a>
+    <div class="header-right">
+      <button id="cartBtn" class="cart-btn">🛒 Cart (<span id="cartCount">0</span>)</button>
+      <button id="menuBtn" class="menu-btn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <!-- Hamburger menu (slides in from the right) -->
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <nav class="drawer" id="drawer" aria-label="Main menu">
+    <button class="icon-btn drawer-close" id="drawerClose" aria-label="Close menu">✕</button>
+    <a href="#">Home</a>
+    <a href="#shop">Shop</a>
+    <a href="#about">About Us</a>
+    <a href="#contact">Contact Us</a>
+  </nav>
+
+  <div id="listView">
+
+    <!-- Full-screen sliding hero -->
+    <section class="hero-slider" id="home">
+      <div class="slide on" style="background-image:url('hero1.jpg')"></div>
+      <div class="slide" style="background-image:url('hero2.jpg')"></div>
+      <div class="hero-shade"></div>
+      <div class="hero-content">
+        <h2>Zhums by Ajé</h2>
+        <p>Handmade in Nigeria. Slowly. On purpose.</p>
+        <a href="#shop" class="hero-btn">Explore Products</a>
+      </div>
+      <div class="dots" id="dots">
+        <button class="on" aria-label="Slide 1"></button>
+        <button aria-label="Slide 2"></button>
+      </div>
+    </section>
+
+    <!-- Shop -->
+    <section class="shop" id="shop">
+      <h2 class="section-title">Shop</h2>
+      <div class="shop-search"><input type="search" id="search" placeholder="Search products..."></div>
+      <nav class="filters" id="filters"></nav>
+      <main>
+        <div class="grid" id="productGrid"></div>
+        <p class="empty" id="noResults" hidden>No products found.</p>
+      </main>
+    </section>
+
+    <!-- About us -->
+    <section class="about" id="about">
+      <div class="about-inner">
+        <h2 class="section-title">About Us</h2>
+        <p class="lead">Built for the woman who wants to wear something beautiful without saving it for a special occasion.</p>
+        <p>African fashion — but the kind you just pick up and go. To the market, to brunch, to the night that becomes a memory.</p>
+        <p>Every piece is handmade by me in Nigeria. Slowly. On purpose.</p>
+        <p>Because you deserve clothes that were actually built for you.</p>
+        <p class="lead">Welcome to Zhums by Ajé. 🤍</p>
+      </div>
+    </section>
+
+    <!-- Contact us -->
+    <section class="contact" id="contact">
+      <h2 class="section-title">Contact Us</h2>
+      <p>We would love to hear from you.</p>
+      <div class="contact-cards">
+        <a class="contact-card" href="tel:+2348107548508"><span>📞</span><strong>Call us</strong><small>08107548508</small></a>
+        <a class="contact-card" href="mailto:zhums.ng@gmail.com"><span>✉️</span><strong>Email us</strong><small>zhums.ng@gmail.com</small></a>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Single product page -->
+  <section class="detail" id="detail" hidden></section>
+
+  <footer class="footer"><img src="wordmark.png" alt="Zhums by Ajé">&copy; 2026 Zhums by Ajé. All rights reserved.</footer>
+
+  <!-- Cart sidebar -->
+  <aside class="cart" id="cart">
+    <div class="cart-head">
+      <h2>Your Cart</h2>
+      <button id="closeCart" class="icon-btn" aria-label="Close cart">✕</button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-foot">
+      <p>Total: <strong id="cartTotal">₦0</strong></p>
+      <button id="checkoutBtn" class="btn">Checkout</button>
+    </div>
+  </aside>
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Checkout modal -->
+  <div class="modal" id="checkoutModal">
+    <div class="modal-box">
+      <h2>Checkout</h2>
+      <form id="checkoutForm" novalidate>
+        <label>Full name
+          <input type="text" id="name" required>
+        </label>
+        <label>Phone number
+          <input type="tel" id="phone" placeholder="e.g. 08012345678" required>
+        </label>
+        <label>Email
+          <input type="email" id="email" required>
+        </label>
+        <label>Delivery address
+          <textarea id="address" rows="3" required></textarea>
+        </label>
+        <p class="error" id="formError"></p>
+        <div class="modal-actions">
+          <button type="button" id="cancelCheckout" class="btn btn-light">Cancel</button>
+          <button type="submit" class="btn">Place Order on WhatsApp</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js?v=3"></script>
+  <script src="script.js?v=3"></script>
+</body>
+</html>
